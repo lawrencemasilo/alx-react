@@ -4,14 +4,13 @@ import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 
 class Notifications extends Component {
-  constructor(props) {
-    super(props);
-    this.markAsRead = this.markAsRead.bind(this);
+  shouldComponentUpdate(nextProps) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
   }
 
-  markAsRead(id) {
+  markAsRead = (id) => {
     console.log(`Notification ${id} has been marked as read`);
-  }
+  };
 
   render() {
     const { displayDrawer, listNotifications } = this.props;
