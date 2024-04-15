@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans';
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.App-logo {
+  width: 10rem;
+  height: 10rem;
+}
+
+.App-Header-Title {
+  color: #e23548;
+}
+
+.App-body {
+  border-top: 4px solid #e23548;
+}
+
+.App-body p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.App-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  font-style: italic;
+  font-size: 20px;
+  border-top: 4px solid #e23548;
+}
