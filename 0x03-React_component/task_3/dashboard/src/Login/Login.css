@@ -1,0 +1,8 @@
+.App-body {
+    border-top: 4px solid #e23548;
+}
+
+.App-body p {
+    margin-left: 20px;
+    font-size: 20px;
+}
