@@ -1,69 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import BodySection from '../BodySection/BodySection';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-    };
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown(event) {
-    const { logOut } = this.props;
-    if (event.ctrlKey && event.key === 'h') {
-      alert('Logging you out');
-      logOut();
-    }
-  }
-
-  render() {
-    const { isLoggedIn } = this.state;
-
-    const listCourses = [
-      { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 },
-    ];
-
-    const listNotifications = [
-      { id: 1, html: { __html: 'New course available' }, type: 'default', value: 'New course available' },
-      { id: 2, html: { __html: 'New resume available' }, type: 'urgent', value: 'New resume available' },
-    ];
-
-    return (
-      <>
-        <Notifications listNotifications={listNotifications} />
-        <div className="App">
-          <Header />
-          <div className="App-body">
-            {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login onLogin={() => this.setState({ isLoggedIn: true })} />}
-          </div>
-          <div className="App-footer">
-            <Footer />
-          </div>
+  return (
+    <>
+      <Notifications />
+      <div className="App">
+        <Header />
+        <div className="App-body">
+          <BodySectionWithMarginBottom title="Course list">
+            <CourseList />
+          </BodySectionWithMarginBottom>
+          <BodySectionWithMarginBottom title="Log in to continue">
+            <Login onLogin={() => setIsLoggedIn(true)} />
+          </BodySectionWithMarginBottom>
+          <BodySection title="News from the School">
+            <p>Some random text here...</p>
+          </BodySection>
         </div>
-      </>
-    );
-  }
+        <div className="App-footer">
+          <Footer />
+        </div>
+      </div>
+    </>
+  );
 }
-
-App.defaultProps = {
-  logOut: () => {},
-};
 
 export default App;
