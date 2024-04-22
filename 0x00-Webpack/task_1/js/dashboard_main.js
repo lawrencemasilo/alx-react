@@ -4,7 +4,7 @@ import _ from 'lodash';
 const updateCounter = _.debounce(() => {
   const count = parseInt($('#count').text()) || 0;
   $('#count').text(`${count + 1} clicks on the button`);
-}, 1000);
+}, 500);
 
 $(document).ready(() => {
   $('body').append('<p>Holberton Dashboard</p>');
