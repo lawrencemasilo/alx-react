@@ -1,13 +1,16 @@
 export default function accessImmutableObject(object, array) {
-  let current = object;
+  let value = object;
   for (const key of array) {
-    if (Map.isMap(current)) {
-      current = current.get(key);
-    } else if (typeof current === 'object' && current !== null) {
-      current = current[key];
+    if (value instanceof Map) {
+      value = value.get(key);
+    } else if (typeof value === 'object' && value !== null) {
+      value = value[key];
     } else {
       return undefined;
     }
   }
-  return current;
+  if (typeof value === 'string') {
+    return value;
+  }
+  return undefined;
 }
