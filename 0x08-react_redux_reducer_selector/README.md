@@ -1,0 +1,1 @@
+This is about React Redux reducer and selector.
