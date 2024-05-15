@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -6,6 +6,7 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import Login from '../Login/Login';
 import { StyleSheet, css } from 'aphrodite';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   body: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
 
 export const AppContext = createContext();
 
-const App = ({ isLoggedIn }) => {
+const App = ({ isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer }) => {
   const [listNotifications, setListNotifications] = useState([]);
 
   const markNotificationAsRead = (id) => {
@@ -40,7 +41,7 @@ const App = ({ isLoggedIn }) => {
   return (
     <AppContext.Provider value={{ user: { isLoggedIn }, markNotificationAsRead }}>
       <div className={css(styles.body)}>
-        <Notifications listNotifications={listNotifications} />
+        <Notifications listNotifications={listNotifications} displayDrawer={displayDrawer} />
         <div className={css(styles.app)}>
           <Header />
           <div className="App-body">
@@ -55,10 +56,16 @@ const App = ({ isLoggedIn }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.get('isUserLoggedIn'),
+    displayDrawer: state.get('isNotificationDrawerVisible'),
   };
 };
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
