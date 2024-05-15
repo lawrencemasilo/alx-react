@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Notifications from '../Notifications/Notifications';
@@ -54,6 +55,20 @@ const App = ({ isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotific
       </div>
     </AppContext.Provider>
   );
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  displayDrawer: PropTypes.bool,
+  displayNotificationDrawer: PropTypes.func,
+  hideNotificationDrawer: PropTypes.func,
+};
+
+App.defaultProps = {
+  isLoggedIn: false,
+  displayDrawer: false,
+  displayNotificationDrawer: () => {},
+  hideNotificationDrawer: () => {},
 };
 
 export const mapStateToProps = (state) => {
