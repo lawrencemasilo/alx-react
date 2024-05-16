@@ -1,23 +1,28 @@
-import React, { useContext } from 'react';
-import AppContext from '../App/AppContext';
+import React from 'react';
+import { connect } from 'react-redux';
+import { logout } from './actions';
 
-const Header = () => {
-  const { user, logOut } = useContext(AppContext);
-
-  const handleLogOut = () => {
-    logOut();
-  };
-
+const Header = ({ user, logout }) => {
   return (
-    <div className='Header'>
-      <h1>Header</h1>
-      {user.isLoggedIn && (
-        <div id='logoutSection'>
-          Welcome {user.email} (<span onClick={handleLogOut}>logout</span>)
+    <header>
+      {user ? (
+        <div>
+          <span>Welcome, {user.name}</span>
+          <a href="#" onClick={(e) => { e.preventDefault(); logout(); }}>Logout</a>
         </div>
+      ) : (
+        <div>Please log in.</div>
       )}
-    </div>
+    </header>
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
