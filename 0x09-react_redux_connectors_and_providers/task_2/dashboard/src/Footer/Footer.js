@@ -1,18 +1,20 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../App/AppContext'; // Import AppContext
+import React from 'react';
+import { connect } from 'react-redux';
 
-const Footer = () => {
-  const { user } = useContext(AppContext); // Use context
-
+const Footer = ({ user }) => {
   return (
     <footer>
-      {user.isLoggedIn && ( // Conditionally render based on user login status
-        <p>
-          Contact us: <a href="#">support@ourcompany.com</a>
-        </p>
+      {user ? (
+        <div>Welcome, {user.name}!</div>
+      ) : (
+        <div>Please log in.</div>
       )}
     </footer>
   );
 };
 
-export default Footer;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Footer);
