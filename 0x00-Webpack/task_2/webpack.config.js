@@ -5,27 +5,32 @@ module.exports = {
   entry: './js/dashboard_main.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 8192,
               name: '[name].[ext]',
-              outputPath: 'images',
-            },
-          },
-        ],
-      },
-    ],
-  },
+              outputPath: 'images/'
+            }
+          }
+        ]
+      }
+    ]
+  }
 };

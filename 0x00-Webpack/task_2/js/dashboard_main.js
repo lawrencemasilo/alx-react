@@ -1,7 +1,9 @@
 import $ from 'jquery';
 import { debounce } from 'lodash';
+import logo from '../assets/holberton-logo.jpg';
 
 $(document).ready(function() {
+  $('body').append('<img src="' + logo + '" alt="Holberton Logo">');
   $('body').append('<p>Holberton Dashboard</p>');
   $('body').append('<p>Dashboard data for the students</p>');
   $('body').append('<button id="btn">Click here to get started</button>');
